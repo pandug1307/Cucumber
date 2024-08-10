@@ -1,0 +1,20 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="CucumberDemo" thread-count="2" parallel="tests">
+    <test name="CucumberTest" preserve-order="true">
+<!--        <parameter name="browsername" value="firefox"/>-->
+<!--        <parameter name="url" value="https://www.myregistry.com"/>-->
+<!--        <parameter name="localDriverpath" value="C:\Program Files\geckodriver.exe"/>-->
+
+        <classes>
+            <class name="StepDefinitions.TestRunner">
+<!--                <methods>-->
+<!--                    &lt;!&ndash;                        <include name="SignUpwith_InvalidData"/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        <include name="SignUpwith_ValidData"/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        <include name="Verify_InvalidLogin"/>&ndash;&gt;-->
+<!--                    <include name="Verify_ValidLogin"/>-->
+<!--                    &lt;!&ndash;                        <include name="Verify_Logout"/>&ndash;&gt;-->
+<!--                </methods>-->
+            </class>
+        </classes>
+    </test>
+</suite>
