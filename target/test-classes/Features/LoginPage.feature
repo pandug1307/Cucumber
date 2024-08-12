@@ -1,17 +1,24 @@
-#Date
-#Description
+@LoginPage
 
-  Feature: feature to test Amazon SignIn page
-    Scenario Outline: test Amazon site with valid username and password
+  Feature: Login to Amazon application
 
-      Given user is on Chrome browser
-      And open Amazon site
-      When user SingIn with <username> and <password>
-      When navigated to the Home page
-      And hits SignOut button
-      Then back to SignIn page
+    Background:
+    Given user is on Amazon page "https://www.amazon.in/"
+
+    @ValidCredentials
+    Scenario: Login with valid credentials
+
+      When user enters username as "7043838900" and password as "Hello@123"
+      Then user should be able to login successfully and Home page is open
+#      When hits SignOut button
+#      Then back to Login page
+
+    @InvalidCredentials
+    Scenario Outline: Login with invalid credentials
+
+      When user enters username as "<username>" and password as "<password>"
+      Then user should be able to see the error message "<errorMessage>"
 
       Examples:
-        | username | password |
-      | 7043838900 | Hello@123 |
-      | 7043838900 | Hello@123 |
+        | username | password | errorMessage |
+        | 7043838901 | Hello@123 | Create Account |

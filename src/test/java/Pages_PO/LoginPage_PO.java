@@ -1,10 +1,12 @@
 package Pages_PO;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import java.sql.Driver;
+import java.util.concurrent.TimeUnit;
 
 public class LoginPage_PO {
     WebDriver driver;
@@ -21,31 +23,44 @@ public class LoginPage_PO {
         this.driver = driver;
     }
     public void validLoginUser(String username, String password) throws InterruptedException {
-        WebElement menu= driver.findElement(menuBar);
-        action= new Actions(driver);
+        WebElement menu = driver.findElement(menuBar);
+        action = new Actions(driver);
         action.moveToElement(menu).perform();
         driver.findElement(signIn_Menu).click();
+        Thread.sleep(1000);
 
-        Thread.sleep(2000);
-        driver.findElement(txt_username).sendKeys(username);
-        driver.findElement(btn_Continue).click();
-        driver.findElement(txt_password).sendKeys(password);
-        driver.findElement(btn_Login).click();
+            driver.findElement(txt_username).sendKeys(username);
+            driver.findElement(btn_Continue).click();
+            driver.findElement(txt_password).sendKeys(password);
+            driver.findElement(btn_Login).click();
     }
     public void verifyHomePage() throws InterruptedException {
-        boolean elemnt= driver.getCurrentUrl().contains("/?ref_=nav_custrec_signin");
-        Thread.sleep(3000);
+        String actual= driver.getCurrentUrl();
+        String expected= "https://www.amazon.in/?ref_=nav_signin";
+        Assert.assertEquals(actual, expected);
+        Thread.sleep(2000);
         WebElement loggedinUser = driver.findElement(By.xpath("//span[@id='nav-link-accountList-nav-line-1']"));
         System.out.println(loggedinUser.getText());
+
+        WebElement Menu = driver.findElement(mnu_user);
+        action = new Actions(driver);
+        action.moveToElement(Menu).perform();
+        driver.findElement(btn_Logout).click();
+        System.out.println("user logged out successfully");
     }
-        public void verifyLogout() {
-            WebElement Menu = driver.findElement(mnu_user);
-            action = new Actions(driver);
-            action.moveToElement(Menu).perform();
-            driver.findElement(btn_Logout).click();
-        }
-        public void backTo_SignInPage() {
-            boolean elemnt1= driver.getCurrentUrl().contains("/ap/signin?");
-            driver.close();
-        }
+//        public void verifyLogout() {
+//            WebElement Menu = driver.findElement(mnu_user);
+//            action = new Actions(driver);
+//            action.moveToElement(Menu).perform();
+//            driver.findElement(btn_Logout).click();
+//
+//            String actual= driver.getCurrentUrl();
+//            String expected= "https://www.amazon.in/ap/signin?openid.pape.max_auth_age=900&openid.return_to=https%3A%2F%2Fwww.amazon.in%2Fgp%2Fyourstore%2Fhome%3Fpath%3D%252Fgp%252Fyourstore%252Fhome%26signIn%3D1%26useRedirectOnSuccess%3D1%26action%3Dsign-out%26ref_%3Dnav_Account";
+//            Assert.assertEquals(actual, expected);
+//        }
+//        public void backTo_SignInPage() {
+//            String actual= driver.getCurrentUrl();
+//            String expected= "https://www.amazon.in/ap/signin?openid.pape.max_auth_age=900&openid.return_to=https%3A%2F%2Fwww.amazon.in%2Fgp%2Fyourstore%2Fhome%3Fpath%3D%252Fgp%252Fyourstore%252Fhome%26signIn%3D1%26useRedirectOnSuccess%3D1%26action%3Dsign-out%26ref_%3Dnav_Account";
+//            Assert.assertEquals(actual, expected);
+//        }
     }
